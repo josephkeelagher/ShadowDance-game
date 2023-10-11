@@ -37,14 +37,14 @@ public class SpecialLane extends Lane {
         }
     }
 
-    public String update(Input input, Accuracy accuracy) {
+    public String update(Input input, EffectHandler effectHandler) {
         draw();
 
         for (int i = currNote; i < numNotes; i++) {
             notes.get(i).update();
         }
         if (currNote < numNotes) {
-            effect = notes.get(currNote).checkEffect(input, accuracy, TARGET_HEIGHT, relevantKey);
+            effect = notes.get(currNote).checkEffect(input, effectHandler, TARGET_HEIGHT, Keys.SPACE);
         }
 
     }
