@@ -54,6 +54,17 @@ public class Level {
     }
     public void end() {
         started = false;
+        finished = false;
+    }
+    public void reset() {
+        currFrame = 0;
+        score = 0;
+        started = false;
+        finished = false;
+        paused = false;
+        for (int i = 0; i < numLanes; i++) {
+            lanes[i].reset();
+        }
     }
     public boolean isStarted() {
         return started;

@@ -19,6 +19,7 @@ public class ShadowDance extends AbstractGame {
     private final static int TITLE_X = 220;
     private final static int TITLE_Y = 250;
     private final static int END_MSG_Y = 300;
+    private final static int END_MSG_2_Y = 500;
     private final static int INS_X_OFFSET = 100;
     private final static int INS_Y_OFFSET = 190;
     private final static int INS_LINE_2_OFFSET = 20;
@@ -33,6 +34,8 @@ public class ShadowDance extends AbstractGame {
     private static final int CLEAR_SCORE = 150;
     private static final String CLEAR_MESSAGE = "CLEAR!";
     private static final String TRY_AGAIN_MESSAGE = "TRY AGAIN";
+    private static final String END_MESSAGE = "PRESS SPACE " +
+            "TO RETURN TO SELECTION";
     private final Accuracy accuracy = new Accuracy();
     private static final String LEVEL_1 = "level1.csv";
     private static final String LEVEL_2 = "level2.csv";
@@ -108,7 +111,7 @@ public class ShadowDance extends AbstractGame {
      */
     @Override
     protected void update(Input input) {
-
+        System.out.println(Level.getCurrFrame());
         if (input.wasPressed(Keys.ESCAPE)) {
             Window.close();
         }
@@ -138,7 +141,13 @@ public class ShadowDance extends AbstractGame {
                         WINDOW_WIDTH/2 - TITLE_FONT.getWidth(TRY_AGAIN_MESSAGE)/2,
                         END_MSG_Y);
             }
-            // **** ADD SECOND END MESSAGE *** //
+            INSTRUCTION_FONT.drawString(END_MESSAGE,
+                    WINDOW_WIDTH/2 - INSTRUCTION_FONT.getWidth(END_MESSAGE)/2,
+                    END_MSG_2_Y);
+            if (input.wasPressed(Keys.SPACE)) {
+                accuracy.setAccuracy(null);
+                level.reset();
+            }
         }
 
         else {

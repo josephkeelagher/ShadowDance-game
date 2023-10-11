@@ -37,6 +37,12 @@ public class HoldNote extends Note{
         return 0;
     }
 
+    public void reset() {
+        active = false;
+        completed = false;
+        holdStarted = false;
+        y = 24;
+    }
     public boolean isActive() {
         return active;
     }

@@ -21,7 +21,12 @@ public class NormalNote extends Note{
 
         return 0;
     }
-
+    @Override
+    public void reset() {
+        active = false;
+        completed = false;
+        y = 100;
+    }
     public boolean isActive() {
         return active;
     }

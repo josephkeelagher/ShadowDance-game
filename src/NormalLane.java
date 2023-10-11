@@ -1,8 +1,8 @@
 import bagel.*;
 
 public class NormalLane extends Lane{
-    private final Note[] notes = new Note[100];
-    private final Note[] holdNotes = new Note[20];
+    private final Note[] notes = new NormalNote[100];
+    private final Note[] holdNotes = new HoldNote[20];
     private int numHoldNotes = 0;
     private int currHoldNote = 0;
 
@@ -12,6 +12,18 @@ public class NormalLane extends Lane{
     @Override
     public String getType() {
         return type;
+    }
+
+    @Override
+    public void reset() {
+        for (int i = 0; i < numNotes; i++) {
+            notes[i].reset();
+            currNote = 0;
+        }
+        for (int i = 0; i < numHoldNotes; i++) {
+            holdNotes[i].reset();
+            currHoldNote = 0;
+        }
     }
 
     @Override
