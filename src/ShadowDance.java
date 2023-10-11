@@ -14,7 +14,7 @@ public class ShadowDance extends AbstractGame {
     private final static int WINDOW_HEIGHT = 768;
     private final static String GAME_TITLE = "SHADOW DANCE";
     private final Image BACKGROUND_IMAGE = new Image("res/background.png");
-    private final static String CSV_FILE = "res/level1-60.csv";
+    private final static String CSV_FILE = "res/level1.csv";
     public final static String FONT_FILE = "res/FSO8BITR.TTF";
     private final static int TITLE_X = 220;
     private final static int TITLE_Y = 250;
@@ -37,14 +37,8 @@ public class ShadowDance extends AbstractGame {
     private static final String LEVEL_1 = "level1.csv";
     private static final String LEVEL_2 = "level2.csv";
     private static final String LEVEL_3 = "level3.csv";
-    private String currLevel;
-    private int numLanes = 0;
-    private int score = 0;
-    private static int currFrame = 0;
-    //private Track track = new Track("res/track1.wav");
-    private boolean started = false;
-    private boolean finished = false;
     private boolean paused = false;
+    private Level level = new Level();
 
 
     public ShadowDance() {
@@ -68,27 +62,26 @@ public class ShadowDance extends AbstractGame {
                     // reading lanes
                     String laneType = splitText[1];
                     int pos = Integer.parseInt(splitText[2]);
-                    Lane lane = new Lane(laneType, pos);
-                    lanes[numLanes++] = lane;
+                    level.addLane(laneType, pos);
                 } else {
                     // reading notes
                     String dir = splitText[0];
                     Lane lane = null;
-                    for (int i = 0; i < numLanes; i++) {
-                        if (lanes[i].getType().equals(dir)) {
-                            lane = lanes[i];
+                    for (int i = 0; i < level.getNumLanes(); i++) {
+                        if (level.getLane(i).getType().equals(dir)) {
+                            lane = level.getLane(i);
                         }
                     }
 
                     if (lane != null) {
                         switch (splitText[1]) {
                             case "Normal":
-                                Note note = new Note(dir, Integer.parseInt(splitText[2]));
+                                NormalNote note = new NormalNote(dir, Integer.parseInt(splitText[2]));
                                 lane.addNote(note);
                                 break;
                             case "Hold":
                                 HoldNote holdNote = new HoldNote(dir, Integer.parseInt(splitText[2]));
-                                lane.addHoldNote(holdNote);
+                                lane.addNote(holdNote);
                                 break;
                         }
                     }
@@ -122,7 +115,7 @@ public class ShadowDance extends AbstractGame {
         }
         BACKGROUND_IMAGE.draw(Window.getWidth() / 2.0, Window.getHeight() / 2.0);
 
-        if (!started) {
+        if (!level.isStarted()) {
             TITLE_FONT.drawString(GAME_TITLE, TITLE_X, TITLE_Y);
             INSTRUCTION_FONT.drawString(INSTRUCTIONS,
                     TITLE_X + INS_X_OFFSET, TITLE_Y + INS_Y_OFFSET);
@@ -136,7 +129,7 @@ public class ShadowDance extends AbstractGame {
         } else {
             // gameplay
 
-            SCORE_FONT.drawString("Score " + score, SCORE_LOCATION, SCORE_LOCATION);
+            SCORE_FONT.drawString("Score " + level.getScore(), SCORE_LOCATION, SCORE_LOCATION);
 
             if (paused) {
                 if (input.wasPressed(Keys.TAB)) {
