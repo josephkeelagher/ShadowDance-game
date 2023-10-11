@@ -1,7 +1,8 @@
 import bagel.*;
 
 public class NormalLane extends Lane{
-    private final String type;
+    private final Note[] notes = new Note[100];
+    private final Note[] holdNotes = new Note[20];
     private int numHoldNotes = 0;
     private int currHoldNote = 0;
 
@@ -15,10 +16,14 @@ public class NormalLane extends Lane{
 
     @Override
     public void addNote(Note note) {
-        notes[numNotes++] = n;
+        if (note instanceof NormalNote) {
+            notes[numNotes++] = note;
+        }
+        if(note instanceof HoldNote) {
+            holdNotes[numHoldNotes++] = note;
+        }
     }
 
-    @Override
     public boolean isFinished() {
         for (int i = 0; i < numNotes; i++) {
             if (!notes[i].isCompleted()) {
@@ -36,7 +41,7 @@ public class NormalLane extends Lane{
     }
 
     @Override
-    public void draw(int x, int y) {
+    public void draw() {
         image.draw(location, HEIGHT);
 
         for (int i = currNote; i < numNotes; i++) {

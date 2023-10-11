@@ -6,7 +6,7 @@ public class NormalNote extends Note{
         super(type, appearanceFrame);
     }
 
-    private int checkScore(Input input, Accuracy accuracy, int targetHeight, Keys relevantKey) {
+    public int checkScore(Input input, Accuracy accuracy, int targetHeight, Keys relevantKey) {
         if (isActive()) {
             // evaluate accuracy of the key press
             int score = accuracy.evaluateScore(y, targetHeight, input.wasPressed(relevantKey));
@@ -19,6 +19,19 @@ public class NormalNote extends Note{
         }
 
         return 0;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void deactivate() {
+        active = false;
+        completed = true;
     }
 
     @Override

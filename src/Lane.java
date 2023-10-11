@@ -1,20 +1,19 @@
-import bagel.*
+import bagel.*;
 public abstract class Lane {
     protected final static int HEIGHT = 384;
     protected final static int TARGET_HEIGHT = 657;
     protected final Image image;
-    protected final int numNotes = 0;
+    protected int numNotes = 0;
     protected final String type;
-    protected final Keys relevantKey;
+    protected Keys relevantKey;
     protected final int location;
-    protected final int currNote = 0;
+    protected int currNote = 0;
 
     public abstract String getType();
 
     public abstract int update(Input input, Accuracy accuracy);
     public abstract void addNote(Note note);
-    public abstract boolean isFinished();
-    public abstract void draw(int x, int y);
+    public abstract void draw();
 
     public Lane(String type, int location) {
         this.type = type;
@@ -37,6 +36,5 @@ public abstract class Lane {
                 relevantKey = Keys.SPACE;
                 break;
         }
-
-
+    }
 }
