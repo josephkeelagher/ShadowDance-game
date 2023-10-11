@@ -25,5 +25,4 @@ public abstract class Note {
 
     public abstract void update();
     public abstract void draw(int x);
-    public abstract int checkScore(Input input, Accuracy accuracy, int targetHeight, Keys relevantKey);
 }

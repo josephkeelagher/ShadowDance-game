@@ -10,7 +10,6 @@ public abstract class Lane {
     protected int currNote = 0;
 
     public abstract String getType();
-    public abstract int update(Input input, Accuracy accuracy);
     public abstract void addNote(Note note);
     public abstract void draw();
     public abstract boolean isFinished();

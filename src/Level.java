@@ -1,12 +1,14 @@
 import bagel.*;
+import java.util.ArrayList;
 public class Level {
     private static int numLanes = 0;
-    private Lane[] lanes = new Lane[5];
+    private ArrayList<Lane> lanes = new ArrayList<Lane>();
     private static int score = 0;
     private static int currFrame = 0;
     private boolean started = false;
     private boolean finished = false;
     private boolean paused = false;
+    private String currEffect;
 
     public boolean isFinished() {
         return finished;
@@ -14,7 +16,12 @@ public class Level {
 
     public void update(Input input, Accuracy accuracy) {
         for (int i = 0; i < numLanes; i++) {
-            score += lanes[i].update(input, accuracy);
+            if (lanes.get(i) instanceof SpecialLane) {
+                currEffect =  ((SpecialLane) lanes.get(i)).update(input, accuracy);
+            }
+            else {
+                score += ((NormalLane) lanes.get(i)).update(input, accuracy);
+            }
         }
 
         accuracy.update();
@@ -32,19 +39,21 @@ public class Level {
 
 
     public void addLane(String laneType, int pos) {
-        if (laneType.equals("Special")) {}
+        if (laneType.equals("Special")) {
+        }
         else {
-            lanes[numLanes] = new NormalLane(laneType, pos);
+            Lane newlane = new NormalLane(laneType, pos);
+            lanes.add(newlane);
         }
         numLanes++;
     }
     public void drawLanes() {
         for (int i = 0; i < numLanes; i++) {
-            lanes[i].draw();
+            lanes.get(i).draw();
         }
     }
     public Lane getLane(int index) {
-        return lanes[index];
+        return lanes.get(index);
     }
     public int getNumLanes() {
         return numLanes;
@@ -63,7 +72,7 @@ public class Level {
         finished = false;
         paused = false;
         for (int i = 0; i < numLanes; i++) {
-            lanes[i].reset();
+            lanes.get(i).reset();
         }
     }
     public boolean isStarted() {
