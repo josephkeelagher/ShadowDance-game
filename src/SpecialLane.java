@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class SpecialLane extends Lane {
     private final String type = "Special";
     private final ArrayList<SpecialNote> notes = new ArrayList<SpecialNote>();
-    private String effect;
+
     public SpecialLane(int location) {
         super("Special", location);
     }
@@ -37,6 +37,14 @@ public class SpecialLane extends Lane {
         }
     }
 
+    @Override
+    public void reset() {
+        for (int i = 0; i < numNotes; i++) {
+            notes.get(i).reset();
+            currNote = 0;
+        }
+    }
+
     public String update(Input input, EffectHandler effectHandler) {
         draw();
 
@@ -44,8 +52,12 @@ public class SpecialLane extends Lane {
             notes.get(i).update();
         }
         if (currNote < numNotes) {
-            effect = notes.get(currNote).checkEffect(input, effectHandler, TARGET_HEIGHT, Keys.SPACE);
+            String effect = notes.get(currNote).checkEffect(input, effectHandler, TARGET_HEIGHT, Keys.SPACE);
+            if(notes.get(currNote).isCompleted()) {
+                currNote++;
+                return effect;
+            }
         }
-
+        return null;
     }
 }

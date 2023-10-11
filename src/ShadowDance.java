@@ -37,6 +37,7 @@ public class ShadowDance extends AbstractGame {
     private static final String END_MESSAGE = "PRESS SPACE " +
             "TO RETURN TO SELECTION";
     private final Accuracy accuracy = new Accuracy();
+    private final EffectHandler effectHandler = new EffectHandler();
     private static final String LEVEL_1 = "level1.csv";
     private static final String LEVEL_2 = "level2.csv";
     private static final String LEVEL_3 = "level3.csv";
@@ -164,7 +165,7 @@ public class ShadowDance extends AbstractGame {
 
             } else {
                 level.nextFrame();
-                level.update(input, accuracy);
+                level.update(input, accuracy, effectHandler);
                 if (input.wasPressed(Keys.TAB)) {
                     level.pause();
                 }

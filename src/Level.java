@@ -14,10 +14,10 @@ public class Level {
         return finished;
     }
 
-    public void update(Input input, Accuracy accuracy) {
+    public void update(Input input, Accuracy accuracy, EffectHandler effectHandler) {
         for (int i = 0; i < numLanes; i++) {
             if (lanes.get(i) instanceof SpecialLane) {
-                currEffect =  ((SpecialLane) lanes.get(i)).update(input, accuracy);
+                currEffect =  ((SpecialLane) lanes.get(i)).update(input, effectHandler);
             }
             else {
                 score += ((NormalLane) lanes.get(i)).update(input, accuracy);
