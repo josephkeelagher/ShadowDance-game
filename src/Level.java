@@ -1,3 +1,4 @@
+import bagel.*;
 public class Level {
     private static int numLanes = 0;
     private Lane[] lanes = new Lane[5];
@@ -10,6 +11,26 @@ public class Level {
     public boolean isFinished() {
         return finished;
     }
+
+    public void update(Input input, Accuracy accuracy) {
+        for (int i = 0; i < numLanes; i++) {
+            score += lanes[i].update(input, accuracy);
+        }
+
+        accuracy.update();
+        finished = checkFinished();
+    }
+
+    private boolean checkFinished() {
+        for (int i = 0; i < numLanes; i++) {
+            if (!this.getLane(i).isFinished()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public void addLane(String laneType, int pos) {
         if (laneType.equals("Special")) {}
         else {
@@ -17,19 +38,42 @@ public class Level {
         }
         numLanes++;
     }
+    public void drawLanes() {
+        for (int i = 0; i < numLanes; i++) {
+            lanes[i].draw();
+        }
+    }
     public Lane getLane(int index) {
         return lanes[index];
     }
     public int getNumLanes() {
         return numLanes;
     }
+    public void start() {
+        started = true;
+    }
+    public void end() {
+        started = false;
+    }
     public boolean isStarted() {
         return started;
     }
-    public static int getScore() {
+    public void pause() {
+        paused = true;
+    }
+    public void resume() {
+        paused = false;
+    }
+    public boolean isPaused() {
+        return paused;
+    }
+    public int getScore() {
         return score;
     }
     public static int getCurrFrame() {
         return currFrame;
+    }
+    public void nextFrame() {
+        currFrame++;
     }
 }

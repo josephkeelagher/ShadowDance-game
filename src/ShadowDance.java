@@ -18,6 +18,7 @@ public class ShadowDance extends AbstractGame {
     public final static String FONT_FILE = "res/FSO8BITR.TTF";
     private final static int TITLE_X = 220;
     private final static int TITLE_Y = 250;
+    private final static int END_MSG_Y = 300;
     private final static int INS_X_OFFSET = 100;
     private final static int INS_Y_OFFSET = 190;
     private final static int INS_LINE_2_OFFSET = 20;
@@ -32,12 +33,10 @@ public class ShadowDance extends AbstractGame {
     private static final int CLEAR_SCORE = 150;
     private static final String CLEAR_MESSAGE = "CLEAR!";
     private static final String TRY_AGAIN_MESSAGE = "TRY AGAIN";
-    // private final Accuracy accuracy = new Accuracy();
-    // private final Lane[] lanes = new Lane[4];
+    private final Accuracy accuracy = new Accuracy();
     private static final String LEVEL_1 = "level1.csv";
     private static final String LEVEL_2 = "level2.csv";
     private static final String LEVEL_3 = "level3.csv";
-    private boolean paused = false;
     private Level level = new Level();
 
 
@@ -125,16 +124,40 @@ public class ShadowDance extends AbstractGame {
             INSTRUCTION_FONT.drawString(INS_LINE_3,
                     (Window.getWidth() - INSTRUCTION_FONT.getWidth(INS_LINE_3)) / 2.0,
                     TITLE_Y + INS_Y_OFFSET + INS_LINE_3_OFFSET);
+            if (input.wasPressed(Keys.NUM_1)) {
+                level.start();
+            }
+        } else if (level.isFinished()) {
+            // end screen
+            if (level.getScore() >= CLEAR_SCORE) {
+                TITLE_FONT.drawString(CLEAR_MESSAGE,
+                        WINDOW_WIDTH/2 - TITLE_FONT.getWidth(CLEAR_MESSAGE)/2,
+                        END_MSG_Y);
+            } else {
+                TITLE_FONT.drawString(TRY_AGAIN_MESSAGE,
+                        WINDOW_WIDTH/2 - TITLE_FONT.getWidth(TRY_AGAIN_MESSAGE)/2,
+                        END_MSG_Y);
+            }
+            // **** ADD SECOND END MESSAGE *** //
+        }
 
-        } else {
+        else {
             // gameplay
 
             SCORE_FONT.drawString("Score " + level.getScore(), SCORE_LOCATION, SCORE_LOCATION);
 
-            if (paused) {
+            if (level.isPaused()) {
                 if (input.wasPressed(Keys.TAB)) {
-                    paused = false;
+                    level.resume();
                     //track.run();
+                }
+                level.drawLanes();
+
+            } else {
+                level.nextFrame();
+                level.update(input, accuracy);
+                if (input.wasPressed(Keys.TAB)) {
+                    level.pause();
                 }
             }
         }

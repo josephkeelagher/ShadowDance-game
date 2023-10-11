@@ -15,6 +15,7 @@ public abstract class Lane {
     public abstract void addNote(Note note);
     public abstract void draw();
 
+    public abstract boolean isFinished();
     public Lane(String type, int location) {
         this.type = type;
         this.location = location;

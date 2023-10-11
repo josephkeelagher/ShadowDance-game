@@ -3,9 +3,11 @@ public class HoldNote extends Note{
     private static final int HEIGHT_OFFSET = 82;
     private int y = 24;
     private boolean holdStarted = false;
+    private final Image image;
 
     public HoldNote(String type, int appearanceFrame) {
         super(type, appearanceFrame);
+        image = new Image("res/holdNote" + type + ".png");
     }
     public int checkScore(Input input, Accuracy accuracy, int targetHeight, Keys relevantKey) {
         if (isActive() && !holdStarted) {

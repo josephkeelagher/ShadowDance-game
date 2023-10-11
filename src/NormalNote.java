@@ -1,9 +1,10 @@
 import bagel.*;
 public class NormalNote extends Note{
     private int y = 100;
-
+    private final Image image;
     public NormalNote(String type, int appearanceFrame) {
         super(type, appearanceFrame);
+        image = new Image("res/note" + type + ".png");
     }
 
     public int checkScore(Input input, Accuracy accuracy, int targetHeight, Keys relevantKey) {
