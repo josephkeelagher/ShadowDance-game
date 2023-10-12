@@ -14,7 +14,7 @@ public class ShadowDance extends AbstractGame {
     private final static int WINDOW_HEIGHT = 768;
     private final static String GAME_TITLE = "SHADOW DANCE";
     private final Image BACKGROUND_IMAGE = new Image("res/background.png");
-    private final static String CSV_FILE = "res/level1.csv";
+    private final static String CSV_FILE = "res/level2.csv";
     public final static String FONT_FILE = "res/FSO8BITR.TTF";
     private final static int TITLE_X = 220;
     private final static int TITLE_Y = 250;
@@ -83,8 +83,20 @@ public class ShadowDance extends AbstractGame {
                                 lane.addNote(note);
                                 break;
                             case "Hold":
-                                HoldNote holdNote = new HoldNote(dir, Integer.parseInt(splitText[2]));
+                                HoldNote holdNote = new HoldNote (dir, Integer.parseInt(splitText[2]));
                                 lane.addNote(holdNote);
+                                break;
+                            case "SpeedUp":
+                                SpeedUpNote speedUpNote = new SpeedUpNote(Integer.parseInt(splitText[2]));
+                                lane.addNote(speedUpNote);
+                                break;
+                            case "SlowDown":
+                                SlowDownNote slowDownNote = new SlowDownNote(Integer.parseInt(splitText[2]));
+                                lane.addNote(slowDownNote);
+                                break;
+                            case "DoubleScore":
+                                DoubleScoreNote doubleScoreNote = new DoubleScoreNote(Integer.parseInt(splitText[2]));
+                                lane.addNote(doubleScoreNote);
                                 break;
                         }
                     }

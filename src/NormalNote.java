@@ -3,7 +3,7 @@ public class NormalNote extends Note{
     private int y = 100;
     private final Image image;
     public NormalNote(String type, int appearanceFrame) {
-        super(type, appearanceFrame);
+        super(appearanceFrame);
         image = new Image("res/note" + type + ".png");
     }
 

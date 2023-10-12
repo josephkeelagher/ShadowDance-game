@@ -18,6 +18,16 @@ public class Level {
         for (int i = 0; i < numLanes; i++) {
             if (lanes.get(i) instanceof SpecialLane) {
                 currEffect =  ((SpecialLane) lanes.get(i)).update(input, effectHandler);
+                if (currEffect != null) {
+                    if (currEffect.equals("SpeedUp")) {
+                        speedUp();
+                        System.out.println("ATTEMPTED SPEED UP **************");
+                    }
+                    if (currEffect.equals("SlowDown")) {
+                        slowDown();
+                        System.out.println("ATTEMPTED SLOW DOWN **************");
+                    }
+                }
             }
             else {
                 score += ((NormalLane) lanes.get(i)).update(input, accuracy);
@@ -25,6 +35,7 @@ public class Level {
         }
 
         accuracy.update();
+        effectHandler.update();
         finished = checkFinished();
     }
 
@@ -37,14 +48,22 @@ public class Level {
         return true;
     }
 
+    private void speedUp() {
+        Note.doubleSpeed();
+    }
+    private void slowDown() {
+        Note.normalSpeed();
+    }
 
     public void addLane(String laneType, int pos) {
+        Lane newlane;
         if (laneType.equals("Special")) {
+            newlane = new SpecialLane(pos);
         }
         else {
-            Lane newlane = new NormalLane(laneType, pos);
-            lanes.add(newlane);
+            newlane = new NormalLane(laneType, pos);
         }
+        lanes.add(newlane);
         numLanes++;
     }
     public void drawLanes() {

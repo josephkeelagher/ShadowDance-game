@@ -5,6 +5,8 @@ public class EffectHandler {
     public static final String DOUBLE_SCORE = "DOUBLE SCORE";
     public static final String LANE_CLEAR = "LANE CLEAR";
     public static final String SLOW_DOWN = "SLOW DOWN";
+    public static final String HIT = "HIT";
+    public static final String MISS = "MISS";
     private static final Font EFFECT_FONT = new Font(ShadowDance.FONT_FILE, 40);
     private static final int RENDER_FRAMES = 30;
     private String currEffect = null;
@@ -15,12 +17,16 @@ public class EffectHandler {
         frameCount = 0;
     }
 
-    public boolean evaluateEffectHit(int height, int targetHeight, boolean triggered) {
+    public String evaluateEffectHit(int height, int targetHeight, boolean triggered) {
         int distance = Math.abs(height - targetHeight);
-        if (triggered && distance <= HIT_RADIUS) {
-            return true;
+        if (triggered && (distance <= HIT_RADIUS)) {
+            setEffect(SPEED_UP);
+            return HIT;
+        } else if (height >= (Window.getHeight())) {
+            setEffect(Accuracy.MISS);
+            return MISS;
         }
-        return false;
+        return null;
     }
 
     public void update() {

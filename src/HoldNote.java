@@ -6,7 +6,7 @@ public class HoldNote extends Note{
     private final Image image;
 
     public HoldNote(String type, int appearanceFrame) {
-        super(type, appearanceFrame);
+        super(appearanceFrame);
         image = new Image("res/holdNote" + type + ".png");
     }
     public int checkScore(Input input, Accuracy accuracy, int targetHeight, Keys relevantKey) {

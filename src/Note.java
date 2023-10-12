@@ -6,7 +6,7 @@ public abstract class Note {
     protected boolean active = false;
     protected boolean completed = false;
 
-    public Note(String type, int appearanceFrame) {
+    public Note(int appearanceFrame) {
         this.appearanceFrame = appearanceFrame;
     }
     public abstract void reset();
@@ -22,7 +22,12 @@ public abstract class Note {
         active = false;
         completed = true;
     }
-
+    public static void doubleSpeed() {
+        speed = 4;
+    }
+    public static void normalSpeed() {
+        speed = 2;
+    }
     public abstract void update();
     public abstract void draw(int x);
 }

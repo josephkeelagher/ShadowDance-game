@@ -4,7 +4,7 @@ public abstract class SpecialNote extends Note{
     protected boolean activated = false;
     protected Image image;
     public SpecialNote(String type, int appearanceFrame) {
-        super(type, appearanceFrame);
+        super(appearanceFrame);
         image = new Image("res/note" + type + ".png");
     }
     public abstract String checkEffect(Input input, EffectHandler effectHandler,
