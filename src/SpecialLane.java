@@ -53,7 +53,7 @@ public class SpecialLane extends Lane {
         }
         if (currNote < numNotes) {
             String effect = notes.get(currNote).checkEffect(input, effectHandler, TARGET_HEIGHT, Keys.SPACE);
-            if(notes.get(currNote).isCompleted()) {
+            if (notes.get(currNote).isCompleted()) {
                 currNote++;
                 return effect;
             }

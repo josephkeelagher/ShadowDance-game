@@ -17,10 +17,10 @@ public class EffectHandler {
         frameCount = 0;
     }
 
-    public String evaluateEffectHit(int height, int targetHeight, boolean triggered) {
+    public String evaluateEffectHit(int height, int targetHeight, boolean triggered, String type) {
         int distance = Math.abs(height - targetHeight);
         if (triggered && (distance <= HIT_RADIUS)) {
-            setEffect(SPEED_UP);
+            setEffect(type);
             return HIT;
         } else if (height >= (Window.getHeight())) {
             setEffect(Accuracy.MISS);

@@ -8,7 +8,8 @@ public class SpeedUpNote extends SpecialNote{
                               int targetHeight, Keys relevantKey) {
         if (isActive()) {
             // check if key press activated effect
-            String effectHit = effectHandler.evaluateEffectHit(y, targetHeight, input.wasPressed(relevantKey));
+            String effectHit = effectHandler.evaluateEffectHit(y, targetHeight, input.wasPressed(relevantKey),
+                    EffectHandler.SPEED_UP);
             if (effectHit != null) {
                 deactivate();
                 if (effectHit.equals(EffectHandler.HIT)) {

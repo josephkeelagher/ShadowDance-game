@@ -9,7 +9,8 @@ public class SlowDownNote extends SpecialNote{
                               int targetHeight, Keys relevantKey) {
         if (isActive()) {
             // check if key press activated effect
-            String effectHit = effectHandler.evaluateEffectHit(y, targetHeight, input.wasPressed(relevantKey));
+            String effectHit = effectHandler.evaluateEffectHit(y, targetHeight, input.wasPressed(relevantKey),
+                    EffectHandler.SLOW_DOWN);
             if (effectHit != null) {
                 deactivate();
                 if (effectHit.equals(EffectHandler.HIT)) {

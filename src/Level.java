@@ -8,6 +8,9 @@ public class Level {
     private boolean started = false;
     private boolean finished = false;
     private boolean paused = false;
+    private int scoreMultiplier = 1;
+    private int frameCount = 480;
+    private static final int MULTIPLIER_FRAMES = 480;
     private String currEffect;
 
     public boolean isFinished() {
@@ -19,24 +22,37 @@ public class Level {
             if (lanes.get(i) instanceof SpecialLane) {
                 currEffect =  ((SpecialLane) lanes.get(i)).update(input, effectHandler);
                 if (currEffect != null) {
-                    if (currEffect.equals("SpeedUp")) {
+                    if (currEffect.equals(EffectHandler.SPEED_UP)) {
                         speedUp();
-                        System.out.println("ATTEMPTED SPEED UP **************");
                     }
-                    if (currEffect.equals("SlowDown")) {
+                    if (currEffect.equals(EffectHandler.SLOW_DOWN)) {
                         slowDown();
-                        System.out.println("ATTEMPTED SLOW DOWN **************");
+                    }
+                    if (currEffect.equals(EffectHandler.DOUBLE_SCORE)) {
+                        doubleMultiplier();
                     }
                 }
             }
             else {
-                score += ((NormalLane) lanes.get(i)).update(input, accuracy);
+                checkMultiplier();
+                score += (scoreMultiplier)*((NormalLane) lanes.get(i)).update(input, accuracy);
             }
         }
 
         accuracy.update();
         effectHandler.update();
         finished = checkFinished();
+    }
+
+    private void doubleMultiplier() {
+        scoreMultiplier = 2;
+        frameCount = 0;
+    }
+    private void checkMultiplier() {
+        frameCount++;
+        if (scoreMultiplier == 2 && frameCount > MULTIPLIER_FRAMES) {
+            scoreMultiplier = 1;
+        }
     }
 
     private boolean checkFinished() {
