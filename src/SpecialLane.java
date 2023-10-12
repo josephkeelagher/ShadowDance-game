@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class SpecialLane extends Lane {
     private final String type = "Special";
     private final ArrayList<SpecialNote> notes = new ArrayList<SpecialNote>();
-
     public SpecialLane(int location) {
         super("Special", location);
     }

@@ -154,6 +154,10 @@ public class ShadowDance extends AbstractGame {
                 level = levelArray[1];
                 level.start();
             }
+            if (input.wasPressed(Keys.NUM_3)) {
+                level = levelArray[2];
+                level.start();
+            }
         } else if (level.isFinished()) {
             // end screen
             if (level.getScore() >= CLEAR_SCORE) {

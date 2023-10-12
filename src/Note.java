@@ -22,6 +22,9 @@ public abstract class Note {
         active = false;
         completed = true;
     }
+    public int getAppearance() {
+        return appearanceFrame;
+    }
     public static void doubleSpeed() {
         speed = 4;
     }

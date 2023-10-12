@@ -4,6 +4,8 @@ public class NormalLane extends Lane{
     private final ArrayList<NormalNote> notes = new ArrayList<NormalNote>();
     private final ArrayList<HoldNote> holdNotes = new ArrayList<HoldNote>();
     private final ArrayList<BombNote> bombNotes = new ArrayList<BombNote>();
+    private final EffectHandler effectHandler = new EffectHandler();
+    private boolean bombed = false;
     private int numBombNotes = 0;
     private int currBombNote = 0;
     private int numHoldNotes = 0;
@@ -26,6 +28,10 @@ public class NormalLane extends Lane{
         for (int i = 0; i < numHoldNotes; i++) {
             holdNotes.get(i).reset();
             currHoldNote = 0;
+        }
+        for (int k = 0; k < numBombNotes; k++) {
+            bombNotes.get(k).reset();
+            currBombNote = 0;
         }
     }
 
@@ -93,6 +99,18 @@ public class NormalLane extends Lane{
             bombNotes.get(k).update();
         }
 
+        if (currBombNote < numBombNotes && (bombNotes.get(currBombNote).getAppearance() <
+                (Integer.min(notes.get(currNote).getAppearance(), holdNotes.get(currHoldNote).getAppearance())))) {
+            String hit = bombNotes.get(currBombNote).checkEffect(input, effectHandler, TARGET_HEIGHT, relevantKey);
+            if (bombNotes.get(currBombNote).isCompleted()) {
+                currBombNote++;
+                if (hit != null) {
+                    bombed = true;
+                }
+                return Accuracy.NOT_SCORED;
+            }
+        }
+
         if (currNote < numNotes) {
             int score = notes.get(currNote).checkScore(input, accuracy, TARGET_HEIGHT, relevantKey);
             if (notes.get(currNote).isCompleted()) {
@@ -108,10 +126,15 @@ public class NormalLane extends Lane{
             }
             return score;
         }
-
         return Accuracy.NOT_SCORED;
     }
-    private void clearLane() {
+    public boolean isBombed() {
+        return bombed;
+    }
+    public void removeBombed() {
+        bombed = false;
+    }
+    public void clearLane() {
         for (int i = currNote; i < numNotes; i++) {
             if (notes.get(i).isActive()) {
                 notes.get(i).deactivate();
@@ -130,5 +153,6 @@ public class NormalLane extends Lane{
             }
         }
     }
+
 
 }

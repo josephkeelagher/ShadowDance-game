@@ -37,6 +37,11 @@ public class Level {
             }
             else {
                 checkMultiplier();
+                if (((NormalLane) lanes.get(i)).isBombed()) {
+                    ((NormalLane) lanes.get(i)).clearLane();
+                    ((NormalLane) lanes.get(i)).removeBombed();
+                    effectHandler.setEffect(EffectHandler.LANE_CLEAR);
+                }
                 score += (scoreMultiplier)*((NormalLane) lanes.get(i)).update(input, accuracy);
             }
         }
@@ -57,7 +62,7 @@ public class Level {
         }
     }
 
-    private boolean checkFinished() {
+    public boolean checkFinished() {
         for (int i = 0; i < numLanes; i++) {
             if (!this.getLane(i).isFinished()) {
                 return false;
