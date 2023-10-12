@@ -1,13 +1,13 @@
 import bagel.*;
 import java.util.ArrayList;
 public class Level {
-    private static int numLanes = 0;
+    private int numLanes = 0;
     private ArrayList<Lane> lanes = new ArrayList<Lane>();
     private static int score = 0;
     private static int currFrame = 0;
-    private boolean started = false;
-    private boolean finished = false;
-    private boolean paused = false;
+    private static boolean started = false;
+    private static boolean finished = false;
+    private static boolean paused = false;
     private int scoreMultiplier = 1;
     private int frameCount = 480;
     private static final int MULTIPLIER_FRAMES = 480;
@@ -24,9 +24,11 @@ public class Level {
                 if (currEffect != null) {
                     if (currEffect.equals(EffectHandler.SPEED_UP)) {
                         speedUp();
+                        score += 15;
                     }
                     if (currEffect.equals(EffectHandler.SLOW_DOWN)) {
                         slowDown();
+                        score += 15;
                     }
                     if (currEffect.equals(EffectHandler.DOUBLE_SCORE)) {
                         doubleMultiplier();
@@ -110,16 +112,16 @@ public class Level {
             lanes.get(i).reset();
         }
     }
-    public boolean isStarted() {
+    public static boolean isStarted() {
         return started;
     }
     public void pause() {
         paused = true;
     }
-    public void resume() {
+    public static void resume() {
         paused = false;
     }
-    public boolean isPaused() {
+    public static boolean isPaused() {
         return paused;
     }
     public int getScore() {

@@ -14,7 +14,7 @@ public class ShadowDance extends AbstractGame {
     private final static int WINDOW_HEIGHT = 768;
     private final static String GAME_TITLE = "SHADOW DANCE";
     private final Image BACKGROUND_IMAGE = new Image("res/background.png");
-    private final static String CSV_FILE = "res/level2.csv";
+    private static String CSV_FILE;
     public final static String FONT_FILE = "res/FSO8BITR.TTF";
     private final static int TITLE_X = 220;
     private final static int TITLE_Y = 250;
@@ -38,15 +38,18 @@ public class ShadowDance extends AbstractGame {
             "TO RETURN TO SELECTION";
     private final Accuracy accuracy = new Accuracy();
     private final EffectHandler effectHandler = new EffectHandler();
-    private static final String LEVEL_1 = "level1.csv";
-    private static final String LEVEL_2 = "level2.csv";
-    private static final String LEVEL_3 = "level3.csv";
-    private Level level = new Level();
+    private static final String[] LEVELS = {"res/level1.csv", "res/level2.csv", "res/level3.csv"};
+    private final int numLevels = 3;
+    private Level[] levelArray = new Level[3];
+    private Level level;
 
 
     public ShadowDance() {
         super(WINDOW_WIDTH, WINDOW_HEIGHT, GAME_TITLE);
-        readCSV();
+        for (int i = 0; i < numLevels; i++) {
+            levelArray[i] = new Level();
+            readCSV(i);
+        }
     }
     /**
      * Method used to read file and create objects (you can change
@@ -55,8 +58,8 @@ public class ShadowDance extends AbstractGame {
     // Reads whichever file has been set as the CSV_FILE,
     // this will change with button presses at the home screen
     // or with completion of other levels.
-    private void readCSV() {
-        try (BufferedReader br = new BufferedReader(new FileReader(CSV_FILE))) {
+    private void readCSV(int levelNum) {
+        try (BufferedReader br = new BufferedReader(new FileReader(LEVELS[levelNum]))) {
             String textRead;
             while ((textRead = br.readLine()) != null) {
                 String[] splitText = textRead.split(",");
@@ -65,14 +68,14 @@ public class ShadowDance extends AbstractGame {
                     // reading lanes
                     String laneType = splitText[1];
                     int pos = Integer.parseInt(splitText[2]);
-                    level.addLane(laneType, pos);
+                    levelArray[levelNum].addLane(laneType, pos);
                 } else {
                     // reading notes
                     String dir = splitText[0];
                     Lane lane = null;
-                    for (int i = 0; i < level.getNumLanes(); i++) {
-                        if (level.getLane(i).getType().equals(dir)) {
-                            lane = level.getLane(i);
+                    for (int i = 0; i < levelArray[levelNum].getNumLanes(); i++) {
+                        if (levelArray[levelNum].getLane(i).getType().equals(dir)) {
+                            lane = levelArray[levelNum].getLane(i);
                         }
                     }
 
@@ -98,6 +101,9 @@ public class ShadowDance extends AbstractGame {
                                 DoubleScoreNote doubleScoreNote = new DoubleScoreNote(Integer.parseInt(splitText[2]));
                                 lane.addNote(doubleScoreNote);
                                 break;
+                            case "Bomb":
+                                BombNote bombNote = new BombNote(Integer.parseInt(splitText[2]));
+                                lane.addNote(bombNote);
                         }
                     }
 
@@ -130,7 +136,7 @@ public class ShadowDance extends AbstractGame {
         }
         BACKGROUND_IMAGE.draw(Window.getWidth() / 2.0, Window.getHeight() / 2.0);
 
-        if (!level.isStarted()) {
+        if (!Level.isStarted()) {
             TITLE_FONT.drawString(GAME_TITLE, TITLE_X, TITLE_Y);
             INSTRUCTION_FONT.drawString(INSTRUCTIONS,
                     TITLE_X + INS_X_OFFSET, TITLE_Y + INS_Y_OFFSET);
@@ -141,6 +147,11 @@ public class ShadowDance extends AbstractGame {
                     (Window.getWidth() - INSTRUCTION_FONT.getWidth(INS_LINE_3)) / 2.0,
                     TITLE_Y + INS_Y_OFFSET + INS_LINE_3_OFFSET);
             if (input.wasPressed(Keys.NUM_1)) {
+                level = levelArray[0];
+                level.start();
+            }
+            if (input.wasPressed(Keys.NUM_2)) {
+                level = levelArray[1];
                 level.start();
             }
         } else if (level.isFinished()) {

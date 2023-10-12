@@ -3,6 +3,9 @@ import java.util.ArrayList;
 public class NormalLane extends Lane{
     private final ArrayList<NormalNote> notes = new ArrayList<NormalNote>();
     private final ArrayList<HoldNote> holdNotes = new ArrayList<HoldNote>();
+    private final ArrayList<BombNote> bombNotes = new ArrayList<BombNote>();
+    private int numBombNotes = 0;
+    private int currBombNote = 0;
     private int numHoldNotes = 0;
     private int currHoldNote = 0;
 
@@ -36,6 +39,10 @@ public class NormalLane extends Lane{
             holdNotes.add((HoldNote) note);
             numHoldNotes++;
         }
+        if (note instanceof BombNote) {
+            bombNotes.add((BombNote) note);
+            numBombNotes++;
+        }
     }
 
     public boolean isFinished() {
@@ -65,6 +72,10 @@ public class NormalLane extends Lane{
         for (int j = currHoldNote; j < numHoldNotes; j++) {
             holdNotes.get(j).draw(location);
         }
+
+        for (int k = currBombNote; k < numBombNotes; k++) {
+            bombNotes.get(k).draw(location);
+        }
     }
 
     public int update(Input input, Accuracy accuracy) {
@@ -76,6 +87,10 @@ public class NormalLane extends Lane{
 
         for (int j = currHoldNote; j < numHoldNotes; j++) {
             holdNotes.get(j).update();
+        }
+
+        for (int k = currBombNote; k < numBombNotes; k++) {
+            bombNotes.get(k).update();
         }
 
         if (currNote < numNotes) {
@@ -95,6 +110,25 @@ public class NormalLane extends Lane{
         }
 
         return Accuracy.NOT_SCORED;
+    }
+    private void clearLane() {
+        for (int i = currNote; i < numNotes; i++) {
+            if (notes.get(i).isActive()) {
+                notes.get(i).deactivate();
+            }
+        }
+
+        for (int j = currHoldNote; j < numHoldNotes; j++) {
+            if (holdNotes.get(j).isActive()) {
+                holdNotes.get(j).deactivate();
+            }
+        }
+
+        for (int k = currBombNote; k < numBombNotes; k++) {
+            if (bombNotes.get(k).isActive()) {
+                bombNotes.get(k).deactivate();
+            }
+        }
     }
 
 }

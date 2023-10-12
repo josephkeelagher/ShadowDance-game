@@ -1,3 +1,4 @@
+import bagel.Image;
 import bagel.Input;
 import bagel.Keys;
 
