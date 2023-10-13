@@ -5,9 +5,9 @@ import bagel.Keys;
 /**
  * bomb note that clears lanes when hit.
  * @author Joseph Keelagher
+ * Inspired/Used code from Project 1 Solution.
  */
 public class BombNote extends SpecialNote{
-    // Inspired/Used code from Project 1 Solution.
 
     /**
      * Constructor for BombNote

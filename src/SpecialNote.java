@@ -3,9 +3,9 @@ import bagel.*;
 /**
  * Class for Special Notes that have effects on the game when activated.
  * @author Joseph Keelagher
+ * Inspired/Used code from Sample Project 1
  */
 public abstract class SpecialNote extends Note implements DrawableNote, Resettable, Updateable{
-    // Inspired/Used code from Sample Project 1
     protected int y = 100;
     protected boolean activated = false;
     protected Image image;

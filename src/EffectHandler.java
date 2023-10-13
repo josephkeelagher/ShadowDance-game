@@ -2,9 +2,10 @@ import bagel.*;
 
 /**
  * Object that handles effect interactions and activations.
+ * @author Joseph Keelagher
+ * Inspired/Used code from Project 1 Solution.
  */
 public class EffectHandler implements Updateable{
-    // Inspired/Used code from Project 1 Solution.
     private static final int HIT_RADIUS = 50;
     /**
      * Feedback for activating speed up note.

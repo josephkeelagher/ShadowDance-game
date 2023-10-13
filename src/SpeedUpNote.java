@@ -3,9 +3,9 @@ import bagel.*;
 /**
  * Note that when activated speeds up the game.
  * @author Joseph Keelagher
+ * Inspired/Used code from Sample Project 1
  */
 public class SpeedUpNote extends SpecialNote{
-    // Inspired/Used code from Sample Project 1
 
     /**
      * Constructor for SpeedUpNote

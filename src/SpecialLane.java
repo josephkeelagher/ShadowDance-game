@@ -4,9 +4,9 @@ import java.util.ArrayList;
 /**
  * Lane that contains Special Notes which apply effects
  * @author Joseph Keelagher
+ * Inspired/Used code from Sample Project 1
  */
 public class SpecialLane extends Lane implements DrawableLane, Resettable{
-    // Inspired/Used code from Sample Project 1
     private final String type = "Special";
     private final ArrayList<SpecialNote> notes = new ArrayList<SpecialNote>();
 

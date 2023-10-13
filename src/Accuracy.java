@@ -4,9 +4,9 @@ import bagel.Window;
 /**
  * Handles accuracy scoring for notes.
  * @author Joseph Keelagher
+ * Inspired/Used from Project 1 Solution.
  */
 public class Accuracy implements Updateable{
-    // Inspired/Used from Project 1 Solution.
     /**
      * score awarded for a perfect hit,
      */

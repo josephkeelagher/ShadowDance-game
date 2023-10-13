@@ -7,9 +7,9 @@ import java.io.FileReader;
  * Skeleton Code for SWEN20003 Project 2, Semester 2, 2023
  * Please enter your name below
  * @author Joseph Keelagher
+ * Inspired/Used code from Sample Project 1
  */
 public class ShadowDance extends AbstractGame {
-    // Inspired/Used code from Sample Project 1
     private final static int WINDOW_WIDTH = 1024;
     private final static int WINDOW_HEIGHT = 768;
     private final static String GAME_TITLE = "SHADOW DANCE";

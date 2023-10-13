@@ -3,9 +3,10 @@ import bagel.Keys;
 
 /**
  * note that doubles scores awarded for a short period.
+ * @author Joseph Keelagher
+ * Inspired/Used code from Project 1 Solution.
  */
 public class DoubleScoreNote extends SpecialNote{
-    // Inspired/Used code from Project 1 Solution.
 
     /**
      * Constructor for DoubleScoreNote

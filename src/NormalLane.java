@@ -1,5 +1,11 @@
 import bagel.*;
 import java.util.ArrayList;
+
+/**
+ * Lane that doesn't contain Special Notes (excluding Bombs).
+ * @author Joseph Keelagher
+ * Inspired/Used code from Project 1 Solution.
+ */
 public class NormalLane extends Lane implements DrawableLane, Resettable{
     private final ArrayList<NormalNote> notes = new ArrayList<NormalNote>();
     private final ArrayList<HoldNote> holdNotes = new ArrayList<HoldNote>();
@@ -11,14 +17,27 @@ public class NormalLane extends Lane implements DrawableLane, Resettable{
     private int numHoldNotes = 0;
     private int currHoldNote = 0;
 
+    /**
+     * Constructor for a Normal Lane
+     * @param type the direction of the lane.
+     * @param location the x value of the lane location
+     */
     public NormalLane(String type, int location) {
         super(type, location);
     }
+
+    /**
+     * determines the direction of the lane.
+     * @return String the type/direction of the lane.
+     */
     @Override
     public String getType() {
         return type;
     }
 
+    /**
+     * resets the lane and its notes to be replayable.
+     */
     @Override
     public void reset() {
         for (int i = 0; i < numNotes; i++) {
@@ -35,6 +54,10 @@ public class NormalLane extends Lane implements DrawableLane, Resettable{
         }
     }
 
+    /**
+     * adds any non special note to the lane (excluding bombs)
+     * @param note object to be added
+     */
     @Override
     public void addNote(Note note) {
         if (note instanceof NormalNote) {
@@ -51,6 +74,10 @@ public class NormalLane extends Lane implements DrawableLane, Resettable{
         }
     }
 
+    /**
+     * determines if the lane has finished producing notes.
+     * @return boolean true if it has finished, false if not.
+     */
     public boolean isFinished() {
         for (int i = 0; i < numNotes; i++) {
             if (!notes.get(i).isCompleted()) {
@@ -67,6 +94,9 @@ public class NormalLane extends Lane implements DrawableLane, Resettable{
         return true;
     }
 
+    /**
+     * draws the lane and its note on screen.
+     */
     @Override
     public void draw() {
         image.draw(location, HEIGHT);
@@ -84,6 +114,12 @@ public class NormalLane extends Lane implements DrawableLane, Resettable{
         }
     }
 
+    /**
+     * draws the lane and its notes as well as checks for any note hits.
+     * @param input Keyboard input
+     * @param accuracy Object that handles hit timing.
+     * @return int the score awarded of any valid note hits.
+     */
     public int update(Input input, Accuracy accuracy) {
         draw();
 
@@ -127,12 +163,25 @@ public class NormalLane extends Lane implements DrawableLane, Resettable{
         }
         return Accuracy.NOT_SCORED;
     }
+
+    /**
+     * determines if the lane needs to be cleared because of a bomb hit.
+     * @return boolean true if needs to be cleared, false if not.
+     */
     public boolean isBombed() {
         return bombed;
     }
+
+    /**
+     * clear the bombed tag, lane no longer needs to be cleared.
+     */
     public void removeBombed() {
         bombed = false;
     }
+
+    /**
+     * clears the lane of active notes due to a bomb being hit.
+     */
     public void clearLane() {
         for (int i = currNote; i < numNotes; i++) {
             if (notes.get(i).isActive()) {

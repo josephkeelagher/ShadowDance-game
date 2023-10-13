@@ -4,9 +4,9 @@ import bagel.Keys;
 /**
  * Note that slows down the speed of all other notes in the game.
  * @author Joseph Keelagher
+ * Inspired/Used code from Sample Project 1
  */
 public class SlowDownNote extends SpecialNote{
-    // Inspired/Used code from Sample Project 1
 
     /**
      * Constructor for SlowDownNote, initializes a new instance of the class
