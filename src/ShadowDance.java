@@ -133,7 +133,7 @@ public class ShadowDance extends AbstractGame {
             Window.close();
         }
         BACKGROUND_IMAGE.draw(Window.getWidth() / 2.0, Window.getHeight() / 2.0);
-
+        // menu screen
         if (!Level.isStarted()) {
             TITLE_FONT.drawString(GAME_TITLE, TITLE_X, TITLE_Y);
             INSTRUCTION_FONT.drawString(INSTRUCTIONS,
@@ -184,7 +184,6 @@ public class ShadowDance extends AbstractGame {
             if (level.isPaused()) {
                 if (input.wasPressed(Keys.TAB)) {
                     level.resume();
-                    //track.run();
                 }
                 level.drawLanes();
 

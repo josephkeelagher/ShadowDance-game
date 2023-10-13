@@ -123,6 +123,7 @@ public class NormalLane extends Lane implements DrawableLane, Resettable{
     public int update(Input input, Accuracy accuracy) {
         draw();
 
+        // move notes down in the lane
         for (int i = currNote; i < numNotes; i++) {
             notes.get(i).update();
         }
@@ -135,6 +136,7 @@ public class NormalLane extends Lane implements DrawableLane, Resettable{
             bombNotes.get(k).update();
         }
 
+        // determine any hits of notes
         if (currBombNote < numBombNotes) {
             String hit = bombNotes.get(currBombNote).checkEffect(input, effectHandler, TARGET_HEIGHT, relevantKey);
             if (bombNotes.get(currBombNote).isCompleted()) {

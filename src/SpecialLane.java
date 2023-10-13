@@ -83,10 +83,11 @@ public class SpecialLane extends Lane implements DrawableLane, Resettable{
      */
     public String update(Input input, EffectHandler effectHandler) {
         draw();
-
+        // move notes down
         for (int i = currNote; i < numNotes; i++) {
             notes.get(i).update();
         }
+        // determine any effect hits
         if (currNote < numNotes) {
             String effect = notes.get(currNote).checkEffect(input, effectHandler, TARGET_HEIGHT, Keys.SPACE);
             if (notes.get(currNote).isCompleted()) {

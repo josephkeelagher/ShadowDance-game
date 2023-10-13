@@ -71,6 +71,7 @@ public class Accuracy implements Updateable{
     public int evaluateScore(int height, int targetHeight, boolean triggered) {
         int distance = Math.abs(height - targetHeight);
 
+        // on key press determine score from distance from target
         if (triggered) {
             if (distance <= PERFECT_RADIUS) {
                 setAccuracy(PERFECT);
@@ -85,7 +86,7 @@ public class Accuracy implements Updateable{
                 setAccuracy(MISS);
                 return MISS_SCORE;
             }
-
+        // miss if note out of bounds
         } else if (height >= (Window.getHeight())) {
             setAccuracy(MISS);
             return MISS_SCORE;
@@ -100,6 +101,7 @@ public class Accuracy implements Updateable{
      */
     public void update() {
         frameCount++;
+        // render feedback on screen
         if (currAccuracy != null && frameCount < RENDER_FRAMES) {
             ACCURACY_FONT.drawString(currAccuracy,
                     Window.getWidth()/2.0 - ACCURACY_FONT.getWidth(currAccuracy)/2,

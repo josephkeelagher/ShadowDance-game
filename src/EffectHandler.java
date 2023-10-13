@@ -55,6 +55,8 @@ public class EffectHandler implements Updateable{
      */
     public String evaluateEffectHit(int height, int targetHeight, boolean triggered, String type) {
         int distance = Math.abs(height - targetHeight);
+
+        // determine if key press was correct for a hit
         if (triggered && (distance <= HIT_RADIUS)) {
             setEffect(type);
             return HIT;

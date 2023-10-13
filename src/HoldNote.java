@@ -32,7 +32,7 @@ public class HoldNote extends Note implements DrawableNote, Resettable, Updateab
     public int checkScore(Input input, Accuracy accuracy, int targetHeight, Keys relevantKey) {
         if (isActive() && !holdStarted) {
             int score = accuracy.evaluateScore(getBottomHeight(), targetHeight, input.wasPressed(relevantKey));
-
+            // Starting a hold
             if (score == Accuracy.MISS_SCORE) {
                 deactivate();
                 return score;
@@ -40,7 +40,9 @@ public class HoldNote extends Note implements DrawableNote, Resettable, Updateab
                 startHold();
                 return score;
             }
-        } else if (isActive() && holdStarted) {
+
+        } // Ending a hold
+        else if (isActive() && holdStarted) {
 
             int score = accuracy.evaluateScore(getTopHeight(), targetHeight, input.wasReleased(relevantKey));
 

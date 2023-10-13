@@ -35,6 +35,7 @@ public class Level implements Resettable{
      */
     public void update(Input input, Accuracy accuracy, EffectHandler effectHandler) {
         for (int i = 0; i < numLanes; i++) {
+            // Determine which effects need applying and apply them
             if (lanes.get(i) instanceof SpecialLane) {
                 currEffect =  ((SpecialLane) lanes.get(i)).update(input, effectHandler);
                 if (currEffect != null) {
@@ -52,6 +53,7 @@ public class Level implements Resettable{
                 }
             }
             else {
+                // Score lanes and realise bomb hits
                 checkMultiplier();
                 if (((NormalLane) lanes.get(i)).isBombed()) {
                     ((NormalLane) lanes.get(i)).clearLane();
