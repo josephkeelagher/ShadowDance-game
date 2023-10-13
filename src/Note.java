@@ -1,6 +1,6 @@
 import bagel.*;
 
-public abstract class Note {
+public abstract class Note implements DrawableNote, Resettable, Updateable{
     protected final int appearanceFrame;
     protected static int speed = 2;
     protected boolean active = false;

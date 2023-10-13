@@ -1,7 +1,7 @@
 import bagel.Font;
 import bagel.Window;
 
-public class Accuracy {
+public class Accuracy implements Updateable{
     public static final int PERFECT_SCORE = 10;
     public static final int GOOD_SCORE = 5;
     public static final int BAD_SCORE = -1;

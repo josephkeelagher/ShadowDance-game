@@ -1,5 +1,5 @@
 import bagel.*;
-public class NormalNote extends Note{
+public class NormalNote extends Note implements DrawableNote, Resettable, Updateable{
     private int y = 100;
     private final Image image;
     public NormalNote(String type, int appearanceFrame) {

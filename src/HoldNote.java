@@ -1,5 +1,5 @@
 import bagel.*;
-public class HoldNote extends Note{
+public class HoldNote extends Note implements DrawableNote, Resettable, Updateable{
     private static final int HEIGHT_OFFSET = 82;
     private int y = 24;
     private boolean holdStarted = false;

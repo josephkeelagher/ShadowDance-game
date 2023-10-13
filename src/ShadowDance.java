@@ -9,7 +9,7 @@ import java.io.FileReader;
  * @author Joseph Keelagher
  */
 public class ShadowDance extends AbstractGame {
-    // some attributes from P1 Sample code.
+    // Inspired/Used code from Sample Project 1
     private final static int WINDOW_WIDTH = 1024;
     private final static int WINDOW_HEIGHT = 768;
     private final static String GAME_TITLE = "SHADOW DANCE";
@@ -43,7 +43,9 @@ public class ShadowDance extends AbstractGame {
     private Level[] levelArray = new Level[3];
     private Level level;
 
-
+    /**
+     * Constructor for ShadowDance, creates an instance of the game.
+     */
     public ShadowDance() {
         super(WINDOW_WIDTH, WINDOW_HEIGHT, GAME_TITLE);
         for (int i = 0; i < numLevels; i++) {
@@ -52,12 +54,8 @@ public class ShadowDance extends AbstractGame {
         }
     }
     /**
-     * Method used to read file and create objects (you can change
-     * this method as you wish).
+     * Method used to read file and create objects.
      */
-    // Reads whichever file has been set as the CSV_FILE,
-    // this will change with button presses at the home screen
-    // or with completion of other levels.
     private void readCSV(int levelNum) {
         try (BufferedReader br = new BufferedReader(new FileReader(LEVELS[levelNum]))) {
             String textRead;

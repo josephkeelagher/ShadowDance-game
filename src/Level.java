@@ -1,6 +1,6 @@
 import bagel.*;
 import java.util.ArrayList;
-public class Level {
+public class Level implements Resettable{
     private int numLanes = 0;
     private ArrayList<Lane> lanes = new ArrayList<Lane>();
     private static int score = 0;

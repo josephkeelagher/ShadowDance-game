@@ -1,5 +1,5 @@
 import bagel.*;
-public class EffectHandler {
+public class EffectHandler implements Updateable{
     private static final int HIT_RADIUS = 50;
     public static final String SPEED_UP = "SPEED UP";
     public static final String DOUBLE_SCORE = "DOUBLE SCORE";

@@ -1,5 +1,5 @@
 import bagel.*;
-public abstract class Lane {
+public abstract class Lane implements DrawableLane, Resettable{
     protected final static int HEIGHT = 384;
     protected final static int TARGET_HEIGHT = 657;
     protected final Image image;

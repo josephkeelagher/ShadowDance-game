@@ -1,6 +1,6 @@
 import bagel.*;
 import java.util.ArrayList;
-public class NormalLane extends Lane{
+public class NormalLane extends Lane implements DrawableLane, Resettable{
     private final ArrayList<NormalNote> notes = new ArrayList<NormalNote>();
     private final ArrayList<HoldNote> holdNotes = new ArrayList<HoldNote>();
     private final ArrayList<BombNote> bombNotes = new ArrayList<BombNote>();
@@ -99,8 +99,7 @@ public class NormalLane extends Lane{
             bombNotes.get(k).update();
         }
 
-        if (currBombNote < numBombNotes && (bombNotes.get(currBombNote).getAppearance() <
-                (Integer.min(notes.get(currNote).getAppearance(), holdNotes.get(currHoldNote).getAppearance())))) {
+        if (currBombNote < numBombNotes) {
             String hit = bombNotes.get(currBombNote).checkEffect(input, effectHandler, TARGET_HEIGHT, relevantKey);
             if (bombNotes.get(currBombNote).isCompleted()) {
                 currBombNote++;
